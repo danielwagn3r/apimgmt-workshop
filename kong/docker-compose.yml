@@ -39,6 +39,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      kong-migrations:
+        condition: service_started
     environment:
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_ADMIN_ERROR_LOG: /dev/stderr
