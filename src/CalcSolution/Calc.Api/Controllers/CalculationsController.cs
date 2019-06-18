@@ -1,6 +1,5 @@
 ﻿using System;
 using Calc.Api.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Calc.Api.Controllers
@@ -9,27 +8,22 @@ namespace Calc.Api.Controllers
     [ApiController]
     public class CalculationsController : ControllerBase
     {
-        //[Authorize(Roles = Roles.Basic)]
         [HttpPost]
         [Route("Add")]
         public ActionResult<OperationResponseModel> Add([FromBody] BasicOperationRequestModel basicOperationRequestModel) =>
             new OperationResponseModel
             {
-                Result = basicOperationRequestModel.Number1 + basicOperationRequestModel.Number2,
-                OperationRequestedBy = GetUserNameFromContext()
+                Result = basicOperationRequestModel.Number1 + basicOperationRequestModel.Number2
             };
 
-        //[Authorize(Roles = Roles.Basic)]
         [HttpPost]
         [Route("Sub")]
         public ActionResult<OperationResponseModel> Subtraction([FromBody] BasicOperationRequestModel basicOperationRequestModel) =>
             new OperationResponseModel
             {
-                Result = basicOperationRequestModel.Number1 - basicOperationRequestModel.Number2,
-                OperationRequestedBy = GetUserNameFromContext()
+                Result = basicOperationRequestModel.Number1 - basicOperationRequestModel.Number2
             };
 
-        //[Authorize(Roles = Roles.Basic)]
         [HttpPost]
         [Route("Div")]
         public ActionResult<OperationResponseModel> Division([FromBody] BasicOperationRequestModel basicOperationRequestModel)
@@ -38,44 +32,35 @@ namespace Calc.Api.Controllers
 
             return new OperationResponseModel
             {
-                Result = basicOperationRequestModel.Number1 / basicOperationRequestModel.Number2,
-                OperationRequestedBy = GetUserNameFromContext()
+                Result = basicOperationRequestModel.Number1 / basicOperationRequestModel.Number2
             };
         }
 
-        //[Authorize(Roles = Roles.Basic)]
         [HttpPost]
         [Route("Mul")]
         public ActionResult<OperationResponseModel> Multiplication(
             [FromBody] BasicOperationRequestModel basicOperationRequestModel) =>
             new OperationResponseModel
             {
-                Result = basicOperationRequestModel.Number1 * basicOperationRequestModel.Number2,
-                OperationRequestedBy = GetUserNameFromContext()
+                Result = basicOperationRequestModel.Number1 * basicOperationRequestModel.Number2
             };
 
-        //[Authorize(Roles = Roles.Advanced)]
         [HttpPost]
         [Route("Sqr")]
         public ActionResult<OperationResponseModel>
             Square([FromBody] AdvancedOperationRequestModel advancedOperationRequestModel) =>
             new OperationResponseModel
             {
-                Result = Math.Sqrt(advancedOperationRequestModel.Number),
-                OperationRequestedBy = GetUserNameFromContext()
+                Result = Math.Sqrt(advancedOperationRequestModel.Number)
             };
 
-        //[Authorize(Roles = Roles.Advanced)]
         [HttpPost]
         [Route("Pwr")]
         public ActionResult<OperationResponseModel>
             PowerOfTwo([FromBody] AdvancedOperationRequestModel advancedOperationRequestModel) =>
             new OperationResponseModel
             {
-                Result = Math.Pow(advancedOperationRequestModel.Number, 2),
-                OperationRequestedBy = GetUserNameFromContext()
+                Result = Math.Pow(advancedOperationRequestModel.Number, 2)
             };
-
-        private string GetUserNameFromContext() => HttpContext.User.Identity.Name ?? "unknown";
     }
 }
