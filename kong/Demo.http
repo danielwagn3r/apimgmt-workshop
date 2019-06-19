@@ -1,0 +1,237 @@
+# Create Service
+# @name addservice
+POST http://localhost:8001/services
+Content-Type: application/json
+
+{
+    "name" : "calcapi-service",
+    "url" : "http://calc-api:80"
+}
+
+@service_id = {{addservice.response.body.$.id}}
+
+###
+
+# Create Route
+POST http://localhost:8001/services/calcapi-service/routes
+Content-Type: application/json
+
+{
+    "name" : "calcapi-route",
+    "hosts" : [
+        "calcapi.com"
+    ]
+}
+
+###
+
+# Simple Test
+POST http://localhost:8000/api/Calculations/Add
+Host: calcapi.com
+Content-Type: application/json
+
+{
+    number1: "1",
+    number2: "2.0"
+}
+
+
+###
+
+# Add an ip restriction
+# @name addplugin
+POST http://localhost:8001/routes/calcapi-route/plugins
+Content-Type: application/json
+
+{
+    "name" : "ip-restriction",
+    "config" :
+    {
+        "whitelist" : [
+            "172.18.0.0/16"
+        ]
+    }
+}
+
+@plugin_id = {{addplugin.response.body.$.id}}
+
+###
+
+# Get ip restriction plugin
+GET http://localhost:8001/plugins/{{plugin_id}}
+
+###
+
+# Upate an ip restriction
+PATCH http://localhost:8001/plugins/{{plugin_id}}
+Content-Type: application/json
+
+{
+    "name" : "ip-restriction",
+    "config.whitelist" : "172.18.0.3"
+}
+
+###
+
+# Upate an ip restriction
+PATCH http://localhost:8001/plugins/{{plugin_id}}
+Content-Type: application/json
+
+{
+    "name" : "ip-restriction",
+    "config.whitelist" : "172.18.0.0/16"
+}
+
+###
+
+# Create an upstream
+# @name addupstream
+POST http://localhost:8001/upstreams/
+Content-Type: application/json
+
+{
+  "name": "calcapi.v1.service"
+}
+
+@upstream_id = {{addupstream.response.body.$.id}}
+
+###
+
+# Add target
+POST http://localhost:8001/upstreams/{{upstream_id}}/targets
+Content-Type: application/json
+
+{
+    "target" : "calc-api:80"
+}
+
+###
+
+# Update service
+PATCH http://localhost:8001/services/{{service_id}}
+Content-Type: application/json
+
+{
+    "host" : "calcapi.v1.service"
+}
+
+###
+
+# Add a consumer
+# @name addconsumer
+
+POST http://localhost:8001/consumers
+Content-Type: application/json
+
+{
+    "username" : "johndoe"
+}
+
+@consumer_id = {{addupstream.response.body.$.id}}
+
+###
+
+# Add key-auth plugin
+
+POST http://localhost:8001/routes/calcapi-route/plugins
+Content-Type: application/json
+
+{
+    "name" : "key-auth"
+}
+
+###
+
+# Add an apikey
+# @name addapikey
+
+POST http://localhost:8001/consumers/johndoe/key-auth
+Content-Type: application/json
+
+{
+    "key" : "super!s3cr3t"
+}
+
+###
+
+# Key-Auth Simple Test
+POST http://localhost:8000/api/Calculations/Add
+Host: calcapi.com
+apikey: super!s3cr3t
+Content-Type: application/json
+
+{
+    number1: "1",
+    number2: "2.0"
+}
+
+###
+
+# Add rate-limiting plugin
+POST http://localhost:8001/routes/calcapi-route/plugins
+Content-Type: application/json
+
+{
+    "name" : "rate-limiting",
+    "config" :
+    {
+        "limit_by" : "ip",
+        "second" : 2,
+        "minute" : 5,
+        "hour" : 1000
+    }
+}
+
+###
+
+# Create an additionalupstream
+# @name addupstream2
+POST http://localhost:8001/upstreams/
+Content-Type: application/json
+
+{
+  "name": "calcapi.v2.service"
+}
+
+@upstream2_id = {{addupstream2.response.body.$.id}}
+
+###
+
+# Add target
+POST http://localhost:8001/upstreams/{{upstream2_id}}/targets
+Content-Type: application/json
+
+{
+    "target" : "calc-api:80"
+}
+
+###
+
+# Create additional Service
+# @name addservice2
+POST http://localhost:8001/services
+Content-Type: application/json
+
+{
+    "name" : "calcapi-addon-service",
+    "url" : "http://calcapi.v2.service:80/api/Calculations/Add"
+}
+
+@service2_id = {{addservice2.response.body.$.id}}
+
+###
+
+# Create Route
+POST http://localhost:8001/services/calcapi-addon-service/routes
+Content-Type: application/json
+
+{
+    "name" : "calcapi-addon-route",
+    "hosts" : [
+        "calcapi.com"
+    ],
+    "paths" : [
+        "/api/Calculations/Add"
+    ],
+    "regex_priority" : 1
+}
