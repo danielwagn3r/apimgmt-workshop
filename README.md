@@ -9,6 +9,7 @@ by [Anton Kalcik](https://github.com/akalcik) and [Daniel Wagner](https://github
 - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 - [Docker CE](https://docs.docker.com/install/)
 - [.NET Core SDK](https://dotnet.microsoft.com/download)
+- [HTTPie](https://httpie.org/)
 
 ## Used Tools
 
