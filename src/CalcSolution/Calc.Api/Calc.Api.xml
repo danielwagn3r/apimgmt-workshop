@@ -30,10 +30,5 @@
             Calculate value's square.
             </summary>
         </member>
-        <member name="M:Calc.Api.Controllers.CalculationsController.PowerOfTwo(Calc.Api.Models.AdvancedOperationRequestModel)">
-            <summary>
-            Calculate value's power of two.
-            </summary>
-        </member>
     </members>
 </doc>
