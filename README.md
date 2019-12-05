@@ -1,4 +1,4 @@
-# API Management Workshop
+# API Gateway Workshop
 API Management Workshop
 
 by [Anton Kalcik](https://github.com/akalcik) and [Daniel Wagner](https://github.com/danielwagn3r)
