@@ -1,3 +1,25 @@
+# OpenID Provider Configuration Request
+# https://openid.net/specs/openid-connect-discovery-1_0.html
+#
+# @name configuration
+GET http://localhost:5000/.well-known/openid-configuration
+
+@token_endpoint = {{configuration.response.body.$.token_endpoint}}
+
+
+### 
+
+# Get Access Token for Client
+# @name token 
+POST {{token_endpoint}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=client&client_secret=511536EF-F270-4058-80CA-1C89C192F69A&audience=calculator-api&scope=calc%3Adouble%20calc%3Asquare
+
+@access_token = {{token.response.body.$.access_token}}
+
+###
+
 # Create Service
 # @name addservice
 POST http://localhost:8001/services
@@ -9,6 +31,20 @@ Content-Type: application/json
 }
 
 @service_id = {{addservice.response.body.$.id}}
+
+###
+
+# Get Services
+
+GET http://localhost:8001/services
+Accept: application/json
+
+###
+
+# Get Service
+
+GET http://localhost:8001/services/calcapi-service
+Accept: application/json
 
 ###
 
@@ -29,6 +65,7 @@ Content-Type: application/json
 POST http://localhost:8000/api/Calculations/Add
 Host: calcapi.com
 Content-Type: application/json
+Authorization: Bearer {{access_token}}
 
 {
     number1: "1",

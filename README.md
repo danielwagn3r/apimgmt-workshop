@@ -1,7 +1,7 @@
 # API Gateway Workshop
-API Management Workshop
+Why and How by Example with Kong
 
-by [Anton Kalcik](https://github.com/akalcik) and [Daniel Wagner](https://github.com/danielwagn3r)
+by [Daniel Wagner](https://github.com/danielwagn3r)
 
 ## Prerequisites
 

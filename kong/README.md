@@ -8,7 +8,7 @@ Start Kong, Konga and the Calc.Api with the following command
 docker-compose up
 ```
 
-Due to a glitch with the database migrations sometimes this has to be done twice.
+See [https://github.com/Kong/docker-kong/tree/master/compose](https://github.com/Kong/docker-kong/tree/master/compose) for reference.
 
 ## Demo
 
