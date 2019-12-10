@@ -1,0 +1,40 @@
+###
+
+# Get Services
+
+GET http://localhost:8001/services
+Accept: application/json
+
+###
+
+# Get Service
+
+GET http://localhost:8001/services/calcapi-service
+Accept: application/json
+
+###
+
+# Get Routes
+
+GET http://localhost:8001/routes
+Accept: application/json
+
+###
+
+# Get Route
+
+GET http://localhost:8001/services/calcapi-service/routes/calcapi-route
+Accept: application/json
+
+###
+
+# Simple Test
+POST http://localhost:8000/api/Calculations/Sub
+Host: calcapi.com
+Content-Type: application/json
+
+
+{
+    "number1": 3,
+    "number2": 0
+}

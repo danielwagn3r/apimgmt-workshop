@@ -88,8 +88,8 @@ services:
     ports:
       - "8000:8000/tcp"
       - "8001:8001/tcp"
-      - "9443:9443/tcp"
-      - "9444:9444/tcp"
+      - "8443:8443/tcp"
+      - "8444:8444/tcp"
     healthcheck:
       test: ["CMD", "kong", "health"]
       interval: 10s
