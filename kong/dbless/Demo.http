@@ -28,13 +28,27 @@ Accept: application/json
 
 ###
 
-# Simple Test
-POST http://localhost:8000/api/Calculations/Sub
+# A Simple Test
+POST http://localhost:8000/api/Calculations/Add
 Host: calcapi.com
 Content-Type: application/json
 
 
 {
-    "number1": 3,
-    "number2": 0
+    "number1": 17,
+    "number2": 4
+}
+
+###
+
+# Another Simple Test
+POST http://localhost:8000/api/Calculations/Add
+Host: unrestricted.calcapi.com
+Content-Type: application/json
+apikey: b8e6dd8a-64d4-41a1-9f8c-d70d63660d79
+
+
+{
+    "number1": 17,
+    "number2": 4
 }

@@ -7,17 +7,31 @@ services:
   - demo
 
 routes:
-- name: calcapi-route
+- name: restricted-calcapi-route
   service: calcapi-service
   hosts: ["calcapi.com"]
   tags:
   - demo
+- name: unrestricted-calcapi-route
+  service: calcapi-service
+  hosts: ["unrestricted.calcapi.com"]
+  tags:
+  - demo
 
-# plugins:
-# - name: ip-restriction
-#   route: calcapi-route
-#   config: 
-#     whitelist: ["172.18.0.0/16"]
-#     #whitelist: ["172.18.0.3"]
-#   tags:
-#   - demo
+plugins:
+- name: ip-restriction
+  route: restricted-calcapi-route
+  config: 
+    whitelist: ["172.18.0.0/16"]
+    #whitelist: ["172.18.0.3"]
+  tags:
+  - demo
+- name: key-auth
+  route: unrestricted-calcapi-route
+  tags:
+  - demo
+
+consumers:
+- username: principal
+  keyauth_credentials:
+  - key: b8e6dd8a-64d4-41a1-9f8c-d70d63660d79
