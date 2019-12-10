@@ -4,24 +4,54 @@
 
 ###
 
-# Create Service
+# Create a Service
 
 POST http://localhost:8001/services
 Content-Type: application/json
 
 {
-    "name": "get-postman-echo",
-    "url": "https://postman-echo.com/get"
+    "name": "postman-echo",
+    "url": "https://postman-echo.com/"
 }
 
 ###
 
-# Create Route
+# Create a Route
+
+POST http://localhost:8001/services/postman-echo/routes
+Content-Type: application/json
+
+{
+    "name" : "get-postman-echo-route",
+    "hosts" : [
+        "echo.com"
+    ],
+    "methods" : [
+        "GET"
+    ]
+}
+
+###
+
+# Create another Route
+
+POST http://localhost:8001/services/postman-echo/routes
+Content-Type: application/json
+
+{
+    "name" : "post-postman-echo-route",
+    "hosts" : [
+        "echo.com"
+    ],
+    "methods" : [
+        "POST"
+    ]
+}
 
 ###
 
 # Create Upstream Auth Basic Plugin
-POST http://localhost:8001/services/get-postman-echo/plugins
+POST http://localhost:8001/routes/post-postman-echo-route/plugins
 Content-Type: application/json
 
 {
@@ -38,26 +68,18 @@ Content-Type: application/json
 ###
 
 # GET
-GET http://localhost:8000/
-Host: getecho.com
+GET http://localhost:8000/get?valid=false
+Host: echo.com
 Content-Type: application/json
-
-
-{
-    "valid": false
-}
 
 ###
 
 # POST
 
 POST http://localhost:8000/post
-Host: postecho.com
+Host: echo.com
 Content-Type: application/json
-
 
 {
     "valid": false
 }
-
-
