@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.4'
 
 volumes:
   kong_data: {}
@@ -16,7 +16,7 @@ services:
       - 5001:80/tcp
     restart: on-failure
     build:
-      context: ../src/CalcApi
+      context: ../../src/CalcApi
       dockerfile: Dockerfile
 
   # idsrv:
@@ -27,7 +27,7 @@ services:
   #     - 5000:80/tcp
   #   restart: on-failure
   #   build:
-  #     context: ../src/IdSrv
+  #     context: ../../src/IdSrv
   #     dockerfile: Dockerfile
 
   kong-migrations:
