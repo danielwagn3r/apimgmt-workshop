@@ -1,0 +1,3 @@
+[submodule "kong/kong-plugin-upstream-auth-basic"]
+	path = kong/kong-plugin-upstream-auth-basic
+	url = https://github.com/danielwagn3r/kong-plugin-upstream-auth-basic
