@@ -1,8 +1,8 @@
-# Experimenting with Kong
+# Kong DB-less
 
 ## Initial startup
 
-Start Kong, Konga and the Calc.Api with the following command
+Start Kong, Konga and the CalcApi with Docker Compose
 
 ``` bash
 docker-compose up
@@ -10,11 +10,12 @@ docker-compose up
 
 See [https://github.com/Kong/docker-kong/tree/master/compose](https://github.com/Kong/docker-kong/tree/master/compose) for reference.
 
+Load deklarative configuration
+
 ``` bash
 http :8001/config config=@kong.yml
 ```
 
-## Demo
-
+## Perform Requests
 
 Continue in [Demo.http](Demo.http)
