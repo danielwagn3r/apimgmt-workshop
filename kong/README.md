@@ -60,7 +60,7 @@ http :8001
 Build custom Kong image
 
 ``` bash
-docker build . --build-arg KONG_TAG=1.4.1 -t kong:1.4.1-vb
+docker build . --build-arg KONG_TAG=1.4.2 -t kong:1.4.2-vb
 ```
 
 See [https://github.com/Kong/docker-kong/tree/master/compose](https://github.com/Kong/docker-kong/tree/master/compose) for reference.
